@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.kjm.formPrj.member.map.MemberMapper">
+
+	<select id="memberSelect" resultType="MemberVO">
+		select 	email, name, password, state, filename, directory, fileuuid, gubun
+		from 	member
+		where	email = #{email}
+	</select>
+	
+	<select id="memberLogin" resultType="MemberVO">
+		select	email, name, password
+		from 	member
+		<if test="email != null">
+		where	email = #{email}
+		and		password = #{password}
+		</if>
+	</select>
+	
+	<insert id="memberInsert" parameterType="MemberVO">
+		insert into	member (email, name, password, filename, fileuuid, gubun)
+		values		(#{email}, #{name}, #{password}, #{fileName}, #{fileUuid}, #{gubun})
+	</insert>
+	
+</mapper>

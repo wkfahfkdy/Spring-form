@@ -11,6 +11,16 @@
 		<div>
 			<h1>Home</h1>
 		</div>
+		<div>
+			<h3><a href="memberInputForm">회원가입</a></h3>
+		</div>
+		<div>
+			<h3><a href="step1">메시지 연습. step1</a></h3>
+			${message }
+		</div>
+		<div>
+			<h3><a href="memberLoginForm">로그인</a></h3>
+		</div>
 	</div>
 </body>
 </html>
