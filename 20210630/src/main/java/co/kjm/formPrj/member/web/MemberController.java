@@ -2,6 +2,7 @@ package co.kjm.formPrj.member.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import co.kjm.formPrj.common.Encryption;
 import co.kjm.formPrj.member.service.MemberService;
 import co.kjm.formPrj.member.vo.MemberVO;
 
@@ -39,9 +41,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping("memberRegister")
-	public String memberRegister(MemberVO vo, Model model) throws IOException  {
+	public String memberRegister(MemberVO vo, Model model) throws IOException, NoSuchAlgorithmException  {
 		
-		System.out.println(vo);
+		System.out.println("Register : " + vo);
+		
+		// password 암호화
+		Encryption enc = new Encryption(); // 암호화 모듈 호출
+		vo.setPassword(enc.typeTwo(vo.getPassword()));	// 암호화
 		
 		// Maven - commons-fileupload 잊지말기
 		MultipartFile file = vo.getFile(); // 파일 객체 받기
@@ -62,17 +68,14 @@ public class MemberController {
 		System.out.println(vo);
 		int n = memberDao.memberInsert(vo);
 		
-		String message = "";
 		
 		if(n != 0) {
-			message = "입력ㅇ";
+			model.addAttribute("message", "회원가입ㅇ");
 		} else {
-			message = "입력x";
+			model.addAttribute("message", "회원가입x");
 		}
 		
-		model.addAttribute("message", message);
-		
-		return "home";
+		return "member/memberRegister";
 	}
 	
 	@RequestMapping("step1")
@@ -89,13 +92,18 @@ public class MemberController {
 	}
 	
 	@PostMapping("memberLogin")
-	public String memberLogin(MemberVO vo ,Model model, HttpSession session) {
+	public String memberLogin(MemberVO vo ,Model model, HttpSession session) throws NoSuchAlgorithmException {
+		
+		// password 암호화
+		Encryption enc = new Encryption(); // 암호화 모듈 호출
+		vo.setPassword(enc.typeTwo(vo.getPassword()));
 		
 		vo = memberDao.memberLogin(vo);
 		if(vo != null) {
 			session.setAttribute("id", vo.getEmail());
 			session.setAttribute("name", vo.getName());
 		} else {
+			session.invalidate();
 			vo = new MemberVO();
 			vo.setEmail("Guest");
 		}
