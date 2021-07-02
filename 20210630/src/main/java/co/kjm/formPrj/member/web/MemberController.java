@@ -66,8 +66,11 @@ public class MemberController {
 		// DB 입력
 		vo.setFileName(fileName);
 		System.out.println(vo);
-		int n = memberDao.memberInsert(vo);
 		
+		// memberDao.memberInsert(vo); // 2번 insert 적어둔 이유 : transaction 보기 위해서. 여기서는 insert에 성공했지만
+		int n = memberDao.memberInsert(vo);	// 여기에서 실패했기 때문에 transaction이 일어나서 commit이 된게 아니라 rollback이 일어난다. 그래서 DB에 입력되지 않는다.
+											// 그런데 그래도 두번째에서 실패하더라도 insert를 하고싶다면 dataSource-context에서 설정한 transaction 부분을 빼면 된다.
+											// 아무튼 transaction 기능이 이런 것
 		
 		if(n != 0) {
 			model.addAttribute("message", "회원가입ㅇ");
