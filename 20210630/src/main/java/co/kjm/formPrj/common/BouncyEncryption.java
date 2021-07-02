@@ -4,7 +4,6 @@ import org.bouncycastle.crypto.BufferedBlockCipher;
 import org.bouncycastle.crypto.engines.SEEDEngine;
 import org.bouncycastle.crypto.paddings.PaddedBufferedBlockCipher;
 import org.bouncycastle.crypto.params.KeyParameter;
-import org.bouncycastle.util.encoders.Base64;
 
 // Bouncy Castle Provider 암/복호화
 //기존에는 plainText 가 Byte[] 타입이었는데 String 으로 변환함.
@@ -14,10 +13,8 @@ public class BouncyEncryption {
 	private final String key = "!#1234567890!@#8";
 	
 	public byte[] encrypt(String plainText) {	// 암호화
-        //byte[] keyBytes = key.getBytes();	// String을 byte로 변환 
-		byte[] keyBytes = Base64.decode(key);
-        //byte[] testBytes = plainText.getBytes();
-		byte[] testBytes = Base64.decode(plainText);
+        byte[] keyBytes = key.getBytes();	// String을 byte로 변환
+        byte[] testBytes = plainText.getBytes();
 
         // 블록 암호 운용
         // 블록보다 데이터가 짧을 경우 패딩을 사용함
@@ -31,10 +28,8 @@ public class BouncyEncryption {
     }
 
     public byte[] decrypt(String cipherText) {	// 복호화
-        //byte[] keyBytes = key.getBytes();
-    	byte[] keyBytes = Base64.decode(key);
-        //byte[] textBytes = cipherText.getBytes();
-    	byte[] textBytes = Base64.decode(cipherText);
+        byte[] keyBytes = key.getBytes();
+        byte[] textBytes = cipherText.getBytes();
 
         BufferedBlockCipher cipher = new PaddedBufferedBlockCipher(new SEEDEngine());
         cipher.init(false, new KeyParameter(keyBytes));
