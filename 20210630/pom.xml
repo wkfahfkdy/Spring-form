@@ -33,6 +33,19 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 				
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId> 
+			<artifactId>spring-security-web</artifactId> 
+			<version>5.5.1</version> 
+		</dependency> 
+		<dependency>
+			<groupId>org.springframework.security</groupId> 
+			<artifactId>spring-security-config</artifactId> 
+			<version>5.5.1</version> 
+		</dependency>
+
+				
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
@@ -106,6 +119,30 @@
 		    <version>${org.aspectj-version}</version>
 		</dependency>
 		
+		<!-- 채팅 -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-websocket</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.11.3</version>
+		</dependency>
+		
+		<!-- JSON 수업 중 추가 -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.datatype</groupId>
+		    <artifactId>jackson-datatype-jsr310</artifactId>
+		    <version>2.11.3</version>
+		</dependency>
+		
+		
+		
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -124,10 +161,10 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.15</version>
+			<version>1.2.17</version>
 			<exclusions>
 				<exclusion>
 					<groupId>javax.mail</groupId>
@@ -147,7 +184,7 @@
 				</exclusion>
 			</exclusions>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency> -->
 
 		<!-- @Inject -->
 		<dependency>
